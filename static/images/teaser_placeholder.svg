@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="600" viewBox="0 0 1600 600">
+  <rect width="1600" height="600" fill="#f1f3f5"/>
+  <rect x="1" y="1" width="1598" height="598" fill="none" stroke="#ced4da" stroke-width="2" stroke-dasharray="10 8"/>
+  <text x="800" y="280" font-family="Arial, sans-serif" font-size="42" fill="#868e96" text-anchor="middle">Teaser Figure Placeholder</text>
+  <text x="800" y="340" font-family="Arial, sans-serif" font-size="26" fill="#adb5bd" text-anchor="middle">Replace this file: static/images/teaser.png</text>
+</svg>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Towards Physically Consistent 4D Scene Reconstruction for Driving Simulation</title>
+  <meta name="description" content="Project page: Towards Physically Consistent 4D Scene Reconstruction for Driving Simulation.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ==================================================================== -->
+  <!--                               Navbar                                 -->
+  <!-- ==================================================================== -->
+  <nav class="navbar navbar-expand-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Towards Physically Consistent 4D Reconstruction</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#abstract">Abstract</a></li>
+          <li class="nav-item"><a class="nav-link" href="#method">Method</a></li>
+          <li class="nav-item"><a class="nav-link" href="#results">Results</a></li>
+          <li class="nav-item"><a class="nav-link" href="#citation">Citation</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 900px;">
+
+    <!-- ================================================================== -->
+    <!--                               Title                                -->
+    <!-- ================================================================== -->
+    <div class="pt-5"></div>
+    <h1 class="title">Towards Physically Consistent 4D Scene Reconstruction<br>for Driving Simulation</h1>
+    <h2 class="subtitle">Project Page</h2>
+
+    <!-- Buttons: paper links will be added after the paper is accepted / de-anonymized -->
+    <div class="text-center mb-4">
+      <a class="btn btn-dark disabled" href="#" aria-disabled="true">Paper (under review)</a>
+      <a class="btn btn-outline-dark disabled" href="#" aria-disabled="true">arXiv (coming soon)</a>
+      <a class="btn btn-outline-dark disabled" href="#" aria-disabled="true">Code (coming soon)</a>
+    </div>
+
+    <!-- ================================================================== -->
+    <!--                              Authors                               -->
+    <!-- ================================================================== -->
+    <div class="authors">
+      Anonymous Authors
+    </div>
+    <div class="affiliations">
+      Anonymous Institution
+    </div>
+    <p class="equal-contribution">
+      This work is under double-blind review; author information is withheld.
+    </p>
+
+    <!-- ================================================================== -->
+    <!--                              Teaser                                -->
+    <!-- ================================================================== -->
+    <figure>
+      <img src="static/images/teaser_placeholder.svg" alt="Teaser figure placeholder" class="rounded shadow-sm">
+      <figcaption>
+        <strong>Teaser.</strong>
+        <!-- TODO: replace with the real teaser figure (static/images/teaser_placeholder.svg) and
+             write a caption describing the method, e.g. given multi-view street videos captured by
+             a vehicle-mounted rig, our method reconstructs a physically consistent 4D scene that
+             jointly supports stable novel-view synthesis and faithful time-varying dynamics. -->
+        <em>Placeholder.</em> Given calibrated multi-view video of a street scene, our method
+        reconstructs a 4D Gaussian representation in which spatial (view-dependent) and temporal
+        (time-varying) components remain identifiable, enabling both stable novel-view synthesis
+        and faithful dynamic modeling for driving simulation.
+      </figcaption>
+    </figure>
+
+    <!-- ================================================================== -->
+    <!--                             Abstract                               -->
+    <!-- ================================================================== -->
+    <div class="section" id="abstract">
+      <h2 class="section-title">Abstract</h2>
+      <p class="abstract">
+        High-fidelity street scene reconstruction is pivotal for end-to-end autonomous driving
+        simulation, where novel-view synthesis (NVS) and time-varying information modeling are the
+        two key elements of 4D reconstruction tasks. However, existing methods fail to
+        simultaneously achieve both. To bridge this gap, we establish an information-geometric
+        diagnostic framework, revealing that this limitation stems from a credit assignment
+        dilemma between spatial and temporal parameters. Specifically, the deterministic coupling
+        between viewpoint and time in single-source observation creates a low-rank structure that
+        induces massive null-space ambiguity between static view-dependent and dynamic
+        time-varying components. Temporal information overshadows spatial cues, causing the
+        estimation variance of spatial parameters to diverge. To address this issue, we propose
+        <em>Orthogonal Projected Gradient (OPG)</em>, a hierarchical training method designed to
+        restore spatial identifiability. OPG prioritizes the integrity of spatial representations
+        by securing them in an initial stage, then restricts temporal updates to the spatial null
+        space, enabling proactive credit assignment. While OPG isolates temporal updates
+        algebraically, a <em>Temporal Regularization Strategy</em> is proposed to further refine
+        the temporal solution space by imposing a smoothness constraint based on the physical
+        prior of consistent appearance evolution. Experiments demonstrate that our method
+        maintains stable NVS capabilities while modeling time-varying information.
+      </p>
+    </div>
+
+    <!-- ================================================================== -->
+    <!--                              Method                                -->
+    <!-- ================================================================== -->
+    <div class="section" id="method">
+      <h2 class="section-title">Method</h2>
+      <figure>
+        <img src="static/images/method_placeholder.svg" alt="Method figure placeholder" class="rounded shadow-sm">
+        <figcaption>
+          <strong>Method overview.</strong>
+          <em>Placeholder.</em> Left: the information-geometric diagnostic framework traces the
+          failure of joint spatial&ndash;temporal optimization to a low-rank observation structure
+          that creates null-space ambiguity between static view-dependent and dynamic time-varying
+          components. Right: our hierarchical training scheme first secures the spatial
+          representation, then projects temporal updates onto the spatial null space via
+          Orthogonal Projected Gradients (OPG), while a Temporal Regularization Strategy constrains
+          the temporal solution space with a physical smoothness prior on appearance evolution.
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- ================================================================== -->
+    <!--                              Results                               -->
+    <!-- ================================================================== -->
+    <div class="section" id="results">
+      <h2 class="section-title">Results</h2>
+
+      <!-- TODO: for each video, place the .mp4 file under static/videos/ and copy the
+           <div class="video-card"> block below. Remove the placeholder blocks. -->
+
+      <h3 class="h5 mt-3">Novel-View Synthesis</h3>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
+          <p>NVS example</p>
+        </div>
+        <div class="video-card">
+          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
+          <p>NVS example</p>
+        </div>
+      </div>
+
+      <h3 class="h5 mt-4">Time-Varying Information Modeling</h3>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
+          <p>Dynamic reconstruction example</p>
+        </div>
+        <div class="video-card">
+          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
+          <p>Dynamic reconstruction example</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!--                             Citation                               -->
+    <!-- ================================================================== -->
+    <div class="section bibtex-section" id="citation">
+      <h2 class="section-title">Citation</h2>
+      <!-- TODO: update the venue/year and un-anonymize authors after acceptance. -->
+      <pre><code>@article{anonymous2025towards,
+  title   = {Towards Physically Consistent 4D Scene Reconstruction for Driving Simulation},
+  author  = {Anonymous},
+  journal = {Under review},
+  year    = {2025}
+}</code></pre>
+    </div>
+
+  </div>
+
+  <!-- ==================================================================== -->
+  <!--                               Footer                                 -->
+  <!-- ==================================================================== -->
+  <footer>
+    <div class="container">
+      <p>This project page is built on the
+        <a href="https://github.com/NVlabs/project-page-template">Academic Project Page Template</a>,
+        which is in turn based on the <a href="https://nerfies.github.io">Nerfies</a> project page.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
