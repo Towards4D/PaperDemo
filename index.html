@@ -25,7 +25,10 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="#abstract">Abstract</a></li>
           <li class="nav-item"><a class="nav-link" href="#method">Method</a></li>
-          <li class="nav-item"><a class="nav-link" href="#results">Results</a></li>
+          <li class="nav-item"><a class="nav-link" href="#preliminary">Preliminary</a></li>
+          <li class="nav-item"><a class="nav-link" href="#limitations">Limitations</a></li>
+          <li class="nav-item"><a class="nav-link" href="#comparison">Comparison</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ablation">Ablation</a></li>
           <li class="nav-item"><a class="nav-link" href="#citation">Citation</a></li>
         </ul>
       </div>
@@ -41,7 +44,6 @@
     <h1 class="title">Towards Physically Consistent 4D Scene Reconstruction<br>for Driving Simulation</h1>
     <h2 class="subtitle">Project Page</h2>
 
-    <!-- Buttons: paper links will be added after the paper is accepted / de-anonymized -->
     <div class="text-center mb-4">
       <a class="btn btn-dark disabled" href="#" aria-disabled="true">Paper (under review)</a>
       <a class="btn btn-outline-dark disabled" href="#" aria-disabled="true">arXiv (coming soon)</a>
@@ -51,12 +53,8 @@
     <!-- ================================================================== -->
     <!--                              Authors                               -->
     <!-- ================================================================== -->
-    <div class="authors">
-      Anonymous Authors
-    </div>
-    <div class="affiliations">
-      Anonymous Institution
-    </div>
+    <div class="authors">Anonymous Authors</div>
+    <div class="affiliations">Anonymous Institution</div>
     <p class="equal-contribution">
       This work is under double-blind review; author information is withheld.
     </p>
@@ -65,17 +63,13 @@
     <!--                              Teaser                                -->
     <!-- ================================================================== -->
     <figure>
-      <img src="static/images/teaser_placeholder.svg" alt="Teaser figure placeholder" class="rounded shadow-sm">
+      <img src="static/images/ICRA_Demo1.png" alt="Teaser: overview of the reconstructed 4D street scene" class="rounded shadow-sm">
       <figcaption>
         <strong>Teaser.</strong>
-        <!-- TODO: replace with the real teaser figure (static/images/teaser_placeholder.svg) and
-             write a caption describing the method, e.g. given multi-view street videos captured by
-             a vehicle-mounted rig, our method reconstructs a physically consistent 4D scene that
-             jointly supports stable novel-view synthesis and faithful time-varying dynamics. -->
-        <em>Placeholder.</em> Given calibrated multi-view video of a street scene, our method
-        reconstructs a 4D Gaussian representation in which spatial (view-dependent) and temporal
-        (time-varying) components remain identifiable, enabling both stable novel-view synthesis
-        and faithful dynamic modeling for driving simulation.
+        Given calibrated multi-view video captured in urban street scenes, our method
+        reconstructs a 4D scene representation in which spatial (view-dependent) and temporal
+        (time-varying) components remain identifiable, enabling simultaneously stable novel-view
+        synthesis and faithful time-varying dynamics for driving simulation.
       </figcaption>
     </figure>
 
@@ -111,52 +105,185 @@
     <!-- ================================================================== -->
     <div class="section" id="method">
       <h2 class="section-title">Method</h2>
+
       <figure>
-        <img src="static/images/method_placeholder.svg" alt="Method figure placeholder" class="rounded shadow-sm">
+        <img src="static/images/ICRA_Frame1.png" alt="Method figure 1" class="rounded shadow-sm">
         <figcaption>
-          <strong>Method overview.</strong>
-          <em>Placeholder.</em> Left: the information-geometric diagnostic framework traces the
-          failure of joint spatial&ndash;temporal optimization to a low-rank observation structure
-          that creates null-space ambiguity between static view-dependent and dynamic time-varying
-          components. Right: our hierarchical training scheme first secures the spatial
-          representation, then projects temporal updates onto the spatial null space via
-          Orthogonal Projected Gradients (OPG), while a Temporal Regularization Strategy constrains
-          the temporal solution space with a physical smoothness prior on appearance evolution.
+          <strong>Information-geometric diagnosis.</strong>
+          The deterministic coupling between viewpoint and time in single-source observation
+          creates a low-rank structure, inducing null-space ambiguity between static
+          view-dependent and dynamic time-varying components. Temporal information overshadows
+          spatial cues, and the estimation variance of spatial parameters diverges.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img src="static/images/ICRA_Frame2.png" alt="Method figure 2" class="rounded shadow-sm">
+        <figcaption>
+          <strong>Orthogonal Projected Gradient (OPG).</strong>
+          Our hierarchical training scheme first secures the spatial representation in an initial
+          stage, then restricts temporal updates to the spatial null space, restoring spatial
+          identifiability through proactive credit assignment.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img src="static/images/ICRA_Frame3.png" alt="Method figure 3" class="rounded shadow-sm">
+        <figcaption>
+          <strong>Temporal Regularization Strategy.</strong>
+          A smoothness constraint based on the physical prior of consistent appearance evolution
+          further refines the temporal solution space on top of the algebraically isolated
+          temporal updates.
         </figcaption>
       </figure>
     </div>
 
     <!-- ================================================================== -->
-    <!--                              Results                               -->
+    <!--                           Preliminary                              -->
     <!-- ================================================================== -->
-    <div class="section" id="results">
-      <h2 class="section-title">Results</h2>
+    <div class="section" id="preliminary">
+      <h2 class="section-title">Preliminary: Existing Paradigms</h2>
+      <p class="abstract">
+        Existing 4D street scene reconstruction methods broadly follow two training paradigms
+        for coupling spatial and temporal parameters. As shown below, both paradigms entangle
+        the optimization of view-dependent appearance and time-varying dynamics, which is the
+        root cause analyzed in our diagnostic framework.
+      </p>
 
-      <!-- TODO: for each video, place the .mp4 file under static/videos/ and copy the
-           <div class="video-card"> block below. Remove the placeholder blocks. -->
-
-      <h3 class="h5 mt-3">Novel-View Synthesis</h3>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
-          <p>NVS example</p>
-        </div>
-        <div class="video-card">
-          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
-          <p>NVS example</p>
-        </div>
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/existing_paradigms_scene060.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Existing Paradigm 1 vs. Paradigm 2 (scene 060).</p>
       </div>
 
-      <h3 class="h5 mt-4">Time-Varying Information Modeling</h3>
-      <div class="video-grid">
-        <div class="video-card">
-          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
-          <p>Dynamic reconstruction example</p>
-        </div>
-        <div class="video-card">
-          <div class="video-placeholder">Video placeholder<br>(static/videos/...)</div>
-          <p>Dynamic reconstruction example</p>
-        </div>
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/existing_paradigms_scene073.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Existing Paradigm 1 vs. Paradigm 2 (scene 073).</p>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!--                            Limitations                             -->
+    <!-- ================================================================== -->
+    <div class="section" id="limitations">
+      <h2 class="section-title">Limitations of Existing Methods</h2>
+      <p class="abstract">
+        Under open-loop evaluation on the training trajectory, existing methods appear to
+        perform well. However, this apparent success conceals two fundamental failures: novel-view
+        synthesis degrades severely away from the training trajectory, and time-varying effects
+        (e.g., lighting changes of cars) are not captured.
+      </p>
+
+      <h3 class="h5 mt-3">Open-loop evaluation looks deceptively good</h3>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/problem_openloop_scene060.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Existing methods perform well in open-loop evaluation (scene 060): rendering along the training trajectory remains plausible.</p>
+      </div>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/problem_openloop_scene073.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Existing methods perform well in open-loop evaluation (scene 073).</p>
+      </div>
+
+      <h3 class="h5 mt-4">Poor novel-view synthesis capabilities</h3>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/problem_nvs_scene060.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">When synthesizing genuinely novel views, existing methods show poor novel-view synthesis capabilities (scene 060).</p>
+      </div>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/problem_nvs_additional.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Poor novel-view synthesis of existing methods on an additional sequence.</p>
+      </div>
+
+      <h3 class="h5 mt-4">Temporal dynamics are not captured</h3>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/problem_temporal_dynamics.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Existing methods of the second paradigm cannot capture temporal dynamics such as the lighting of cars.</p>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!--                            Comparison                              -->
+    <!-- ================================================================== -->
+    <div class="section" id="comparison">
+      <h2 class="section-title">Comparison with Existing Methods</h2>
+      <p class="abstract">
+        Our method maintains stable novel-view synthesis while faithfully modeling time-varying
+        information, whereas existing methods sacrifice one for the other.
+      </p>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/comparison_others_ours_scene073.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Comparison between existing methods and ours (scene 073): ours preserves spatial fidelity while modeling temporal dynamics.</p>
+      </div>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/comparison_others_ours_additional.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Comparison between existing methods and ours on an additional sequence.</p>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!--                              Ablation                              -->
+    <!-- ================================================================== -->
+    <div class="section" id="ablation">
+      <h2 class="section-title">Ablation Study</h2>
+      <p class="abstract">
+        We ablate the two core components of our method: the proactive credit assignment enabled
+        by Orthogonal Projected Gradient (OPG), and the Temporal Regularization Strategy.
+      </p>
+
+      <h3 class="h5 mt-3">Effect of proactive credit assignment (OPG)</h3>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/ablation_credit_assignment_scene060.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Ablation on scene 060: existing training vs. ours with proactive credit assignment (OPG).</p>
+      </div>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/ablation_credit_assignment_scene073.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Ablation on scene 073: existing training vs. ours with proactive credit assignment (OPG).</p>
+      </div>
+
+      <h3 class="h5 mt-4">Effect of the Temporal Regularization Strategy</h3>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/ablation_temporal_reg_scene060.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Ablation on scene 060: proactive credit assignment alone vs. with the additional temporal regularization.</p>
+      </div>
+
+      <div class="video-row">
+        <video controls muted loop playsinline preload="metadata">
+          <source src="static/videos/ablation_temporal_reg_scene073.mp4" type="video/mp4">
+        </video>
+        <p class="video-caption">Ablation on scene 073: proactive credit assignment alone vs. with the additional temporal regularization.</p>
       </div>
     </div>
 

@@ -136,39 +136,25 @@ figcaption {
   line-height: 1.6;
 }
 
-/* --- Video grid --------------------------------------------------------- */
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
+/* --- Video rows (one video per row) ------------------------------------- */
+.video-row {
+  margin: 2rem 0;
 }
 
-.video-card video {
+.video-row video {
   width: 100%;
   border-radius: 6px;
   background: #000;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
 
-.video-card p {
+.video-caption {
   font-size: 0.95rem;
   color: #495057;
-  text-align: center;
-  margin-top: 0.5rem;
+  text-align: justify;
+  margin-top: 0.6rem;
   margin-bottom: 0;
-}
-
-.video-placeholder {
-  aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed #ced4da;
-  border-radius: 6px;
-  background: #f8f9fa;
-  color: #868e96;
-  text-align: center;
-  padding: 1rem;
+  line-height: 1.6;
 }
 
 /* --- Abstract ----------------------------------------------------------- */
