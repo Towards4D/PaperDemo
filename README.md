@@ -1,6 +1,6 @@
 # Towards_4D_Demo — Project Page
 
-Project page for **"Towards Physically Consistent 4D Scene Reconstruction for Driving Simulation"**.
+Project page for **"The Hidden Rendering Degradation in 4D Driving Scene Reconstruction"**.
 
 Published at: <https://templlll.github.io/Towards_4D_Demo/> (once GitHub Pages is enabled).
 
