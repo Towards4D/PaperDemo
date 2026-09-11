@@ -111,11 +111,11 @@
       <h2 class="section-title">Problems of Existing Methods</h2>
 
       <figure>
-        <img src="static/images/ICRA_Frame2.png" alt="Hierarchical training method" class="rounded shadow-sm">
+        <img src="static/images/ICRA_FrameNew.png" alt="Information-geometric diagnostic of the two existing paradigms" class="rounded shadow-sm">
         <figcaption>
-          <strong>Hierarchical training method.</strong>
-          Spatial view-dependent parameters first explain appearance variations; temporal
-          parameters then capture the residual time-varying signals within the spatial null space.
+          <strong>Information-geometric diagnostic.</strong>
+          Paradigm I assigns credit randomly and overfits the open-loop trajectory; Paradigm II
+          omits time-varying information, extrapolating a surface constant along time.
         </figcaption>
       </figure>
 
@@ -182,6 +182,15 @@
     <!-- ================================================================ -->
     <div class="section" id="ablation">
       <h2 class="section-title">Ablation Study</h2>
+
+      <figure>
+        <img src="static/images/ICRA_Frame2.png" alt="Hierarchical training method" class="rounded shadow-sm">
+        <figcaption>
+          <strong>Hierarchical training method.</strong>
+          Spatial view-dependent parameters first explain appearance variations; temporal
+          parameters then capture the residual time-varying signals within the spatial null space.
+        </figcaption>
+      </figure>
 
       <figure>
         <img src="static/images/ICRA_Frame3.png" alt="Overview of the 4DGS parameter space" class="rounded shadow-sm">
