@@ -164,45 +164,6 @@ figcaption {
   text-align: justify;
 }
 
-/* --- Results tables ------------------------------------------------------ */
-.results-table {
-  font-size: 0.88rem;
-  margin-bottom: 0;
-}
-
-.results-table th {
-  font-weight: 600;
-  color: #495057;
-  vertical-align: middle;
-}
-
-.results-table td,
-.results-table th {
-  border-color: #e9ecef;
-  padding: 0.45rem 0.6rem;
-}
-
-.results-table thead tr:first-child th {
-  border-bottom: none;
-}
-
-.results-table caption {
-  caption-side: bottom;
-  text-align: justify;
-  font-size: 0.9rem;
-  color: #495057;
-  padding-top: 0.75rem;
-  line-height: 1.6;
-}
-
-.results-table .best {
-  color: #4a3f9f;
-}
-
-.ours-row {
-  background-color: #f3f1fb;
-}
-
 /* --- BibTeX ------------------------------------------------------------- */
 .bibtex-section pre {
   background-color: #f8f9fa;

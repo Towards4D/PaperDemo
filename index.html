@@ -12,9 +12,6 @@
 
 <body>
 
-  <!-- ==================================================================== -->
-  <!--                               Navbar                                 -->
-  <!-- ==================================================================== -->
   <nav class="navbar navbar-expand-sm sticky-top">
     <div class="container">
       <a class="navbar-brand" href="#">The Hidden Rendering Degradation in 4D Driving Scene Reconstruction</a>
@@ -23,8 +20,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#abstract">Abstract</a></li>
-          <li class="nav-item"><a class="nav-link" href="#method">Method</a></li>
           <li class="nav-item"><a class="nav-link" href="#comparison">Comparison</a></li>
           <li class="nav-item"><a class="nav-link" href="#problems">Problems</a></li>
           <li class="nav-item"><a class="nav-link" href="#ablation">Ablation</a></li>
@@ -36,9 +31,6 @@
 
   <div class="container" style="max-width: 900px;">
 
-    <!-- ================================================================== -->
-    <!--                               Title                                -->
-    <!-- ================================================================== -->
     <div class="pt-5"></div>
     <h1 class="title">The Hidden Rendering Degradation<br>in 4D Driving Scene Reconstruction</h1>
     <h2 class="subtitle">Project Page</h2>
@@ -49,35 +41,24 @@
       <a class="btn btn-outline-dark disabled" href="#" aria-disabled="true">Code (coming soon)</a>
     </div>
 
-    <!-- ================================================================== -->
-    <!--                              Authors                               -->
-    <!-- ================================================================== -->
     <div class="authors">Anonymous Authors</div>
     <div class="affiliations">Anonymous Institution</div>
     <p class="equal-contribution">
       This work is under double-blind review; author information is withheld.
     </p>
 
-    <!-- ================================================================== -->
-    <!--                              Teaser                                -->
-    <!-- ================================================================== -->
+    <!-- Core demo -->
     <figure>
       <img src="static/images/ICRA_Demo1.png" alt="Qualitative comparison of NVS capabilities" class="rounded shadow-sm">
       <figcaption>
         <strong>Qualitative comparison of NVS capabilities.</strong>
-        The Ground Truth (GT) captures a vehicle's taillights transitioning from
-        <em>off</em> (t&#8321;) to <em>on</em> (t&#8322;). Static <strong>3DGS</strong> fails entirely on
-        dynamic objects. <strong>DrivingGaussian</strong> captures rigid motion but cannot model
-        time-varying appearances, resulting in persistent dark lamps at t&#8322;.
-        <strong>StreetGaussians</strong> and <strong>S&sup3;Gaussian</strong> attempt temporal modeling but
-        suffer from severe morphological collapse in NVS. Our method accurately synthesizes the
-        taillight transition while maintaining robust NVS capabilities.
+        The GT captures taillights transitioning from <em>off</em> (t&#8321;) to <em>on</em> (t&#8322;).
+        Existing methods either cannot model the transition (3DGS, DrivingGaussian) or suffer
+        severe NVS collapse (StreetGaussians, S&sup3;Gaussian). Ours synthesizes the transition with
+        robust NVS.
       </figcaption>
     </figure>
 
-    <!-- ================================================================== -->
-    <!--                             Abstract                               -->
-    <!-- ================================================================== -->
     <div class="section" id="abstract">
       <h2 class="section-title">Abstract</h2>
       <p class="abstract">
@@ -102,166 +83,49 @@
       </p>
     </div>
 
-    <!-- ================================================================== -->
-    <!--                              Method                                -->
-    <!-- ================================================================== -->
-    <div class="section" id="method">
-      <h2 class="section-title">Method</h2>
-      <p class="abstract">
-        We first provide an information-geometric diagnostic framework to analyze the degree of
-        ill-posedness of Gaussian Splatting under various scenarios. We then introduce a
-        hierarchical training method to mitigate the ill-posedness of the problem by enabling
-        proactive credit assignment. Finally, we present a temporal regularization strategy to
-        further refine the temporal solution space, grounded in the physical prior of smooth
-        temporal evolution.
-      </p>
-
-      <figure>
-        <img src="static/images/ICRA_Frame1.png" alt="Singular Observation Failure" class="rounded shadow-sm">
-        <figcaption>
-          <strong>Singular Observation Failure.</strong>
-          4D reconstruction aims to recover the appearance surface <em>c</em> = <em>F</em>(<strong>d</strong>,
-          <em>t</em>), where <strong>d</strong> represents the observing direction, <em>t</em> represents
-          time, and <em>c</em> can be interpreted either as the high-dimensional rendered image
-          intuitively or as the color of each Gaussian primitive. While multi-source observation
-          allows perfect surface solving, SOF restricts observations to <em>c</em> =
-          <em>F</em>(&gamma;(<em>t</em>), <em>t</em>), necessitating proactive credit assignment via
-          physical priors to infer the full surface manifold:
-          <strong>(1) Handling Occlusions (B&ndash;C):</strong> <em>c</em> = <em>F</em>(&gamma;(<em>t</em>),
-          <em>t</em>) is discontinuous during the occlusion gap. Assigning credit to time leads to
-          divergent estimation, whereas spatial assignment enables feature modeling by leveraging
-          observations from other timestamps. <strong>(2) Modeling Relative Statics (C&ndash;D):</strong>
-          When viewpoints are fixed, C&ndash;D is parallel to the time axis. Pure spatial assignment
-          fails to capture temporal events like brake lights.
-        </figcaption>
-      </figure>
-
-      <figure>
-        <img src="static/images/ICRA_Frame3.png" alt="Overview of the 4DGS parameter space" class="rounded shadow-sm">
-        <figcaption>
-          <strong>Overview of the 4DGS parameter space.</strong>
-          4DGS methods parameterize scenes using millions of Gaussian primitives, each
-          characterized by geometric and color attributes. The color of each Gaussian primitive
-          is jointly determined by temporal parameters and spatial parameters.
-        </figcaption>
-      </figure>
-
-      <figure>
-        <img src="static/images/ICRA_Frame2.png" alt="Hierarchical training method" class="rounded shadow-sm">
-        <figcaption>
-          <strong>Hierarchical training method.</strong>
-          Through proactive credit assignment in parameter space, the hierarchical training method
-          first uses spatial view-dependent parameters to explain appearance variations such as
-          vehicle color, and then uses temporal parameters to capture the time-varying residual
-          signals that spatial parameters cannot explain. This allows function information with
-          discontinuities and singularities, such as the segments B&ndash;C and C&ndash;D above, to be
-          exploited more fully, yielding a more accurate surface <em>c</em> = <em>F</em>(<em>d</em>,
-          <em>t</em>). As a result, the model alleviates type II degradation while achieving both
-          time-varying modeling and stable NVS.
-        </figcaption>
-      </figure>
-
-      <p class="abstract">
-        Furthermore, a <strong>temporal regularization strategy</strong> grounds the solution in the
-        physical prior that object appearance evolves smoothly and consistently over time. It
-        enables transient information, observed only within a limited time window owing to visual
-        occlusion, to be reasonably extrapolated over the entire time domain, constraining the
-        solution space within a physically consistent domain.
-      </p>
-    </div>
-
-    <!-- ================================================================== -->
-    <!--                            Comparison                              -->
-    <!-- ================================================================== -->
+    <!-- ================================================================ -->
+    <!-- Comparison                                                      -->
+    <!-- ================================================================ -->
     <div class="section" id="comparison">
       <h2 class="section-title">Comparison with Existing Methods</h2>
-      <p class="abstract">
-        On the open-loop metrics below, our method edges forward slightly. We emphasize that
-        maximizing open-loop metrics is <strong>not</strong> our primary objective, but mitigating type
-        II degradation in NVS. Prevailing methods, despite achieving strong open-loop metrics,
-        sacrifice the modeling of the whole surface <em>c</em> = <em>F</em>(<em>d</em>, <em>t</em>),
-        leading to type II degradation during NVS. In contrast, by restricting temporal gradients
-        into the spatial null space, our framework achieves temporal information modeling while
-        mitigating type II degradation.
-      </p>
-
-      <figure>
-        <div class="table-responsive">
-          <table class="table table-sm results-table align-middle text-center">
-            <caption>
-              Quantitative results on the Waymo NOTR dataset. * denotes metrics within dynamic
-              object regions. Our method achieves comparable performance on open-loop metrics
-              while maintaining robust NVS capabilities.
-            </caption>
-            <thead>
-              <tr>
-                <th rowspan="2" class="text-start">Method</th>
-                <th colspan="5">Waymo Dynamic32</th>
-                <th colspan="3">Waymo Static32</th>
-              </tr>
-              <tr>
-                <th>PSNR&uarr;</th><th>SSIM&uarr;</th><th>LPIPS&darr;</th><th>PSNR*&uarr;</th><th>SSIM*&uarr;</th>
-                <th>PSNR&uarr;</th><th>SSIM&uarr;</th><th>LPIPS&darr;</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="text-start">3DGS</td><td>25.07</td><td>0.816</td><td>0.190</td><td>19.39</td><td>0.611</td><td>26.07</td><td>0.813</td><td>0.198</td></tr>
-              <tr><td class="text-start">DrivingGaussian</td><td>26.66</td><td>0.834</td><td>0.168</td><td>23.81</td><td>0.744</td><td>26.09</td><td>0.813</td><td>0.198</td></tr>
-              <tr><td class="text-start">StreetGaussian</td><td>26.71</td><td>0.834</td><td>0.167</td><td>24.35</td><td>0.753</td><td>26.08</td><td>0.813</td><td>0.198</td></tr>
-              <tr><td class="text-start">S&sup3;Gaussian</td><td>26.48</td><td>0.830</td><td>0.188</td><td>22.51</td><td>0.631</td><td class="best">26.60</td><td class="best">0.821</td><td>0.191</td></tr>
-              <tr class="ours-row"><td class="text-start"><strong>Ours</strong></td><td class="best"><strong>26.91</strong></td><td class="best"><strong>0.838</strong></td><td class="best"><strong>0.160</strong></td><td class="best"><strong>24.37</strong></td><td class="best"><strong>0.757</strong></td><td>26.31</td><td>0.817</td><td class="best"><strong>0.189</strong></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </figure>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/comparison_others_ours_scene073.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Comparison between existing methods and ours (scene 073): ours preserves spatial fidelity while modeling temporal dynamics.</p>
+        <p class="video-caption">Existing methods vs. ours (scene 073).</p>
       </div>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/comparison_others_ours_additional.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Comparison between existing methods and ours on an additional sequence.</p>
+        <p class="video-caption">Existing methods vs. ours (additional sequence).</p>
       </div>
     </div>
 
-    <!-- ================================================================== -->
-    <!--                    Problems of Existing Methods                    -->
-    <!-- ================================================================== -->
+    <!-- ================================================================ -->
+    <!-- Problems                                                        -->
+    <!-- ================================================================ -->
     <div class="section" id="problems">
       <h2 class="section-title">Problems of Existing Methods</h2>
-      <p class="abstract">
-        When performing novel-view observations, the synthesized images frequently suffer from
-        rendering degradation, which can be attributed to two distinct causes.
-        <strong>Type I degradation</strong> involves unobserved regions that were never captured during
-        data collection. <strong>Type II degradation</strong> is a hidden degradation, overlooked by all
-        existing methods: it is rooted in the intrinsic algorithmic limitations of reconstruction
-        frameworks, where the introduction of time-varying modeling inevitably triggers rendering
-        degradation. All current pipelines that incorporate time-varying dynamics fail to properly
-        extrapolate transient observed information, leading to a degradation of even previously
-        captured information when synthesized from novel viewpoints at novel timestamps.
-      </p>
+
+      <figure>
+        <img src="static/images/ICRA_Frame2.png" alt="Hierarchical training method" class="rounded shadow-sm">
+        <figcaption>
+          <strong>Hierarchical training method.</strong>
+          Spatial view-dependent parameters first explain appearance variations; temporal
+          parameters then capture the residual time-varying signals within the spatial null space.
+        </figcaption>
+      </figure>
 
       <h3 class="h5 mt-3">Two existing paradigms</h3>
-      <p class="abstract">
-        Reconstruction-based methods fall into two categories according to whether they model
-        time-varying information. <strong>Paradigm I</strong> (e.g., StreetGaussians, S&sup3;Gaussian)
-        introduces time-varying modeling yet assigns credit randomly, overfitting the open-loop
-        trajectory and incurring type II degradation. <strong>Paradigm II</strong> (e.g.,
-        DrivingGaussian) models vehicles as time-invariant ideal rigid bodies, omitting temporal
-        information.
-      </p>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/existing_paradigms_scene060.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Paradigm I vs. Paradigm II (scene 060): Paradigm I overfits the open-loop trajectory with arbitrary surface modeling; Paradigm II extrapolates a surface constant along the time dimension.</p>
+        <p class="video-caption">Paradigm I vs. Paradigm II (scene 060).</p>
       </div>
 
       <div class="video-row">
@@ -277,30 +141,30 @@
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/problem_openloop_scene060.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Existing methods perform well in open-loop evaluation (scene 060): rendering along the training trajectory remains plausible — but this is merely open-loop overfitting.</p>
+        <p class="video-caption">Existing methods perform well in open-loop evaluation (scene 060) — merely open-loop overfitting.</p>
       </div>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/problem_openloop_scene073.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Existing methods perform well in open-loop evaluation (scene 073).</p>
+        <p class="video-caption">Open-loop evaluation (scene 073).</p>
       </div>
 
-      <h3 class="h5 mt-4">Poor novel-view synthesis capabilities</h3>
+      <h3 class="h5 mt-4">Poor novel-view synthesis</h3>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/problem_nvs_scene060.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">When synthesizing genuinely novel views, temporal-aware methods of Paradigm I suffer from severe morphological collapse (scene 060).</p>
+        <p class="video-caption">Severe morphological collapse in NVS (scene 060).</p>
       </div>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/problem_nvs_additional.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Poor novel-view synthesis of existing methods on an additional sequence.</p>
+        <p class="video-caption">Poor NVS on an additional sequence.</p>
       </div>
 
       <h3 class="h5 mt-4">Temporal dynamics are not captured</h3>
@@ -309,53 +173,23 @@
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/problem_temporal_dynamics.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Paradigm II methods cannot capture temporal dynamics such as the lighting of cars.</p>
+        <p class="video-caption">Paradigm II cannot capture temporal dynamics such as car lighting.</p>
       </div>
     </div>
 
-    <!-- ================================================================== -->
-    <!--                              Ablation                              -->
-    <!-- ================================================================== -->
+    <!-- ================================================================ -->
+    <!-- Ablation                                                        -->
+    <!-- ================================================================ -->
     <div class="section" id="ablation">
       <h2 class="section-title">Ablation Study</h2>
-      <p class="abstract">
-        We ablate the core components of our framework: the hierarchical training method, the
-        Temporal Variation (TV) penalty, and the choice of temporal basis. Applying either the
-        hierarchical training method or the TV regularization alone already alleviates type II
-        degradation to a certain extent — both are designed to better extrapolate the closed-loop
-        surface <em>c</em> = <em>F</em>(<em>d</em>, <em>t</em>) from the open-loop curve
-        <em>c</em> = <em>F</em>(&gamma;(<em>t</em>), <em>t</em>), acting as alternative
-        regularization schemes on the same surface from different perspectives — and combining
-        them yields more stable performance.
-      </p>
 
       <figure>
-        <div class="table-responsive">
-          <table class="table table-sm results-table align-middle text-center">
-            <caption>
-              Ablation study on the Waymo NOTR dataset. * denotes metrics within dynamic object
-              regions. "TV" refers to temporal total variation. The default configuration uses
-              Fourier series as the temporal basis.
-            </caption>
-            <thead>
-              <tr>
-                <th rowspan="2" class="text-start">Configuration</th>
-                <th colspan="5">Waymo Dynamic32</th>
-                <th colspan="3">Waymo Static32</th>
-              </tr>
-              <tr>
-                <th>PSNR&uarr;</th><th>SSIM&uarr;</th><th>LPIPS&darr;</th><th>PSNR*&uarr;</th><th>SSIM*&uarr;</th>
-                <th>PSNR&uarr;</th><th>SSIM&uarr;</th><th>LPIPS&darr;</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="text-start">w/o hierarchical training</td><td>26.71</td><td>0.834</td><td>0.167</td><td>24.24</td><td>0.752</td><td>26.11</td><td>0.813</td><td>0.198</td></tr>
-              <tr><td class="text-start">w/o TV</td><td class="best">26.91</td><td>0.837</td><td class="best">0.159</td><td class="best">24.57</td><td>0.761</td><td class="best">26.33</td><td class="best">0.817</td><td class="best">0.189</td></tr>
-              <tr><td class="text-start">w/ B-spline basis</td><td>26.74</td><td>0.834</td><td>0.168</td><td>24.22</td><td class="best">0.772</td><td>26.08</td><td>0.813</td><td>0.198</td></tr>
-              <tr class="ours-row"><td class="text-start"><strong>Full framework</strong></td><td>26.90</td><td class="best"><strong>0.837</strong></td><td>0.160</td><td>24.37</td><td>0.757</td><td>26.31</td><td>0.817</td><td>0.189</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <img src="static/images/ICRA_Frame3.png" alt="Overview of the 4DGS parameter space" class="rounded shadow-sm">
+        <figcaption>
+          <strong>Overview of the 4DGS parameter space.</strong>
+          The color of each Gaussian primitive is jointly determined by spatial and temporal
+          parameters — the two groups our ablations act on.
+        </figcaption>
       </figure>
 
       <h3 class="h5 mt-3">Effect of the hierarchical training method</h3>
@@ -364,14 +198,14 @@
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/ablation_credit_assignment_scene060.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Ablation on scene 060: existing training vs. ours with proactive credit assignment via the hierarchical training method.</p>
+        <p class="video-caption">Existing training vs. ours with proactive credit assignment (scene 060).</p>
       </div>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/ablation_credit_assignment_scene073.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Ablation on scene 073: existing training vs. ours with proactive credit assignment via the hierarchical training method.</p>
+        <p class="video-caption">Existing training vs. ours with proactive credit assignment (scene 073).</p>
       </div>
 
       <h3 class="h5 mt-4">Effect of the temporal regularization strategy</h3>
@@ -380,31 +214,23 @@
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/ablation_temporal_reg_scene060.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Ablation on scene 060: proactive credit assignment alone vs. with the additional temporal regularization.</p>
+        <p class="video-caption">Proactive credit assignment alone vs. with temporal regularization (scene 060).</p>
       </div>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/ablation_temporal_reg_scene073.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Ablation on scene 073: proactive credit assignment alone vs. with the additional temporal regularization.</p>
+        <p class="video-caption">Proactive credit assignment alone vs. with temporal regularization (scene 073).</p>
       </div>
 
-      <h3 class="h5 mt-4">Discussion: Fourier series vs. B-spline basis</h3>
-      <p class="abstract">
-        In practice, storing full-order Fourier coefficients for every Gaussian is infeasible, and
-        truncating the Fourier basis to low-frequency terms causes visible low-frequency
-        flickering in the rendered frames. B-splines, whose local temporal support confines the
-        influence of transient observations to specific time windows, eliminate this flickering,
-        at a slight cost in reconstruction fidelity. We present this as a discussion of the
-        engineering trade-off.
-      </p>
+      <h3 class="h5 mt-4">Fourier basis vs. B-spline basis</h3>
 
       <div class="video-row">
         <video controls muted loop playsinline preload="metadata">
           <source src="static/videos/discussion_fourier_bspline_scene060.mp4" type="video/mp4">
         </video>
-        <p class="video-caption">Fourier basis vs. B-spline basis (scene 060): the truncated Fourier basis causes visible low-frequency flickering, which B-splines eliminate.</p>
+        <p class="video-caption">Truncated Fourier basis causes low-frequency flickering; B-splines eliminate it (scene 060).</p>
       </div>
 
       <div class="video-row">
@@ -415,12 +241,11 @@
       </div>
     </div>
 
-    <!-- ================================================================== -->
-    <!--                             Citation                               -->
-    <!-- ================================================================== -->
+    <!-- ================================================================ -->
+    <!-- Citation                                                        -->
+    <!-- ================================================================ -->
     <div class="section bibtex-section" id="citation">
       <h2 class="section-title">Citation</h2>
-      <!-- TODO: update the venue/year and un-anonymize authors after acceptance. -->
       <pre><code>@article{anonymous2025hidden,
   title   = {The Hidden Rendering Degradation in 4D Driving Scene Reconstruction},
   author  = {Anonymous},
@@ -431,9 +256,6 @@
 
   </div>
 
-  <!-- ==================================================================== -->
-  <!--                               Footer                                 -->
-  <!-- ==================================================================== -->
   <footer>
     <div class="container">
       <p>This project page is built on the
